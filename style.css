@@ -1,64 +1,284 @@
+/* -------------------------------- Reset -------------------------------- */
+
 *, *::before, *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
 }
 *:not(dialog) {
-  margin: 0;
+    margin: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
+    html {
+        interpolate-size: allow-keywords;
+    }
 }
 body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+    display: block;
+    max-width: 100%;
 }
 input, button, textarea, select {
   font: inherit;
 }
 p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+    overflow-wrap: break-word;
 }
 p {
-  text-wrap: pretty;
+    text-wrap: pretty;
 }
 h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
+    text-wrap: balance;
 }
 #root, #__next {
-  isolation: isolate;
-}
-
-/* -------------------------------- Reset -------------------------------- */
-
-
-:root{}
-
-svg{
-    margin: none;
-    padding: none;
+    isolation: isolate;
 }
 
 button{
-    font-size: 24pt;
-    width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    padding: 0;
+    padding: 0; 
+    background-color: transparent;
+    border: none;
+}
 
-    .svg-container{
-        height: 1.3em;
-        width: 1.5em;
-        display: flex;
-        justify-content: center;
+/* -------------------------------- Code -------------------------------- */
+
+:root{
+
+    --dark1: #221518;
+    --dark2: #2e1c20;
+    --dark3: #120d0e;
+    --accent:#e06c8a;
+    --text-color:#f0e6e8;
+
+    font-family: "roboto";
+    color: var(--text-color);
+}
+
+button{
+    color: inherit;
+}
+
+svg{
+    width: 1.8em;
+    height:1.3em;
+}
+
+
+img{
+    height: 80%;
+    border-radius: 50%
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template: 175px minmax(345px,1fr)/ minmax(275px,325px) minmax(350px,1fr);
+    grid-template-areas: 
+        "sidebar titlebar"
+        "sidebar content-container";
+}
+
+.sidebar{
+    grid-area: sidebar;
+    padding-top: 20px;
+    background-color: var(--dark1);
+    font-family: "nunito";
+    font-weight: 700;
+
+    display: grid;
+    grid-template-columns: 1.5fr 4fr;
+    grid-auto-flow: row;
+    grid-template-rows: minmax(60px,70px);
+    grid-auto-rows: minmax(20px,60px);
+    gap: 0px 10px;
+
+    >*{
+        grid-column: 1/3;
+        display: grid;
+        grid-template-columns: subgrid;
         align-items: center;
-        svg{
-            height:1.3em;
+        justify-items: start;
+    }
+
+    .title{
+        display: grid;
+        font-size: 28pt;
+        width: 100%;
+    }
+    
+    button{
+        font-size: 20pt;
+        width: 100%; 
+    }
+
+    svg{
+        justify-self: right;
+    }
+}
+
+.titlebar{
+    grid-area:titlebar;
+    background-color: var(--dark2);
+    padding: 0 40px;
+    font-weight: 600;
+
+    display: grid;
+    grid-template: 1fr 2fr / 2fr 1fr;
+    gap: 5px;
+
+    svg{
+        height: 80%;
+    }
+    
+    .search-area{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 15px;
+
+        input{
+            padding-left: 1em;
+            border: none;
+            border-radius: 99999px;
+            width: 70%;
+            height: 60%;
+        } 
+    }
+    .small-profile{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        justify-content: center;
+    }
+    .big-profile{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        
+        .greeting-holder{
+            display: flex;
+            flex-direction: column;
+            height: 60%;
+            .greeting-label{
+                font-size: 14pt;
+                font-weight: 500;
+            }
+            .greeting-name{
+                font-size: 24pt;
+                font-weight: 600;
+            }
+        }
+
+    }
+    .button-container{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        button{
+            color: var(--dark2);
+            background-color: var(--text-color);
+            height: 45%;
+            width: 25%;
+            border-radius: 9999px;
+        }
+    }
+
+}
+
+.content-container{
+    grid-area:content-container;
+    background-color: var(--dark3);
+
+    display: grid;
+    grid-template: 1fr 1fr / 4fr 1fr;
+    gap: 20px;
+    padding: 20px;
+
+    grid-template-areas: 
+    "cards announcements"
+    "cards trending";
+
+    h2{
+        margin-bottom: 10px;
+    }
+
+    .card-container{
+        background-color: rgb(66, 5, 10);
+        grid-area: cards;
+    }
+
+    .announcement-container{
+        grid-area: announcements;
+
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .announcement-grid{
+            flex: 1;
+            display: grid;
+            grid-template-rows: repeat(3,1fr);
+            place-items: center center;
+            padding: 10px 20px;
+            background-color: var(--dark2);
+            border-radius: 20px;
+
+
+            .item{
+                padding: 10px 0;
+                p{
+                    font-size: 10pt;
+                }
+            }
+
+            .item + .item{
+                border-top: solid 1px rgba(100, 100, 100, 0.3);
+            }
+        }
+    }
+
+    .trending-container{
+        grid-area:trending;
+
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .trending-grid{
+            background-color: var(--dark2);
+            border-radius: 20px;
+            flex: 1;
+            display: grid;
+            grid-template-rows: repeat(4 ,minmax(70px,1fr));
+            padding: 15px 20px;
+
+            .item{
+                padding: 5px 0;
+                display: grid;
+                grid-template: 1fr 1fr/ 1fr 4fr;
+                grid-template-areas: 
+                    "pfp userhandle"
+                    "pfp description";
+
+                .pfp{
+                    grid-area: pfp;
+                    place-self: center start;
+                }
+                .handle{
+                    grid-area: userhandle;
+                    place-self: end start;
+                }
+                .description{
+                    grid-area: description;
+                    place-self: start start;
+                }
+            }
         }
     }
 }
+
+
