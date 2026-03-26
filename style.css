@@ -261,14 +261,13 @@ body{
                     align-self: end;
                     height: 50px;
                     align-items: end;
+                    gap: 6px;
                     a{
                         color: var(--text-color);
                     }
                     a:hover{
                         color: var(--accent);
                     }
-
-
                     svg{
                         height: 35px;
                         width: 35px;
